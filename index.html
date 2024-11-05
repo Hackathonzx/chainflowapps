@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Chain Liquidity Aggregator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="p-6">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold mb-4 md:mb-0">Cross-Chain Liquidity Aggregator</h1>
+            <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+                <input type="text" placeholder="Amount" id="amount" class="bg-gray-800 text-white px-4 py-2 rounded-full w-full md:w-96">
+                <i class="fas fa-wallet text-2xl cursor-pointer" onclick="connectWallet()"></i>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-6">
+            <button class="bg-gray-800 text-white px-4 py-2 rounded-full" onclick="deposit()">Deposit</button>
+            <button class="bg-gray-800 text-white px-4 py-2 rounded-full" onclick="borrow()">Borrow</button>
+            <button class="bg-gray-800 text-white px-4 py-2 rounded-full" onclick="repay()">Repay</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gray-100 text-black p-6 rounded-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold">Balance</h2>
+                    <span id="balance">0 ETH</span>
+                </div>
+            </div>
+            <div class="bg-gray-100 text-black p-6 rounded-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold">Loan</h2>
+                    <span id="loan">0 ETH</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <footer class="bg-gray-900 text-white py-6 mt-10">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <h2 class="text-xl font-bold">Cross-Chain Liquidity Aggregator</h2>
+                        <p class="text-gray-400">Seamless cross-chain liquidity for DeFi lending</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row justify-between items-center mt-4">
+                    <div class="text-gray-400 text-sm">
+                        &copy; 2023 Cross-Chain Liquidity Aggregator. All rights reserved.
+                    </div>
+                    <div class="flex space-x-4 text-gray-400 text-sm">
+                        <a href="#" class="hover:text-white">Privacy Policy</a>
+                        <a href="#" class="hover:text-white">Terms of Service</a>
+                        <a href="#" class="hover:text-white">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+
+
+
+
+
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+    <script>
+        const aggregatorAddress = 'YOUR_CONTRACT_ADDRESS';
+        let provider, signer, contract;
+
+        async function init() {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            signer = provider.getSigner();
+            contract = new ethers.Contract(aggregatorAddress, LiquidityAggregator.abi, signer);
+            updateBalances();
+        }
+
+        async function connectWallet() {
+            await provider.send("eth_requestAccounts", []);
+            signer = provider.getSigner();
+            updateBalances();
+        }
+
+        async function deposit() {
+            const amount = document.getElementById('amount').value;
+            const tx = await contract.deposit({ value: ethers.utils.parseEther(amount) });
+            await tx.wait();
+            updateBalances();
+        }
+
+        async function borrow() {
+            const amount = document.getElementById('amount').value;
+            const tx = await contract.borrow(ethers.utils.parseEther(amount));
+            await tx.wait();
+            updateBalances();
+        }
+
+        async function repay() {
+            const amount = document.getElementById('amount').value;
+            const tx = await contract.repay({ value: ethers.utils.parseEther(amount) });
+            await tx.wait();
+            updateBalances();
+        }
+
+        async function updateBalances() {
+            const balance = await contract.deposits(await signer.getAddress());
+            const loan = await contract.loans(await signer.getAddress());
+            document.getElementById('balance').innerText = ethers.utils.formatEther(balance) + ' ETH';
+            document.getElementById('loan').innerText = ethers.utils.formatEther(loan) + ' ETH';
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
