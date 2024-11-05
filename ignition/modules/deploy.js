@@ -5,7 +5,7 @@ async function main() {
     const CrossChainLiquidityAggregator = await hre.ethers.getContractFactory("CrossChainLiquidityAggregator");
 
     // Define the addresses for Chainlink CCIP Router and Interest Rate Oracle
-    const chainlinkCCIPRouterAddress = "0xYourChainlinkCCIPRouterAddress"; // Replace with actual address
+    const chainlinkCCIPRouterAddress = "0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59"; // Replace with actual address
     const interestRateOracleAddress = "0xYourInterestRateOracleAddress"; // Replace with actual address
 
     // Deploy the contract
