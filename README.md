@@ -1,128 +1,95 @@
-# AstroPet: Decentralized NFT and Community Event Platform
+# CrossChainLiquidityAggregator
 
-# Overview
+# Project Overview
 
-AstroPet is an Ethereum-based NFT and event management platform where users can mint unique pets, participate in community events, and earn rewards. The platform includes ETH-based rewards for users and a customizable NFT experience with unique properties for each minted pet.
+The CrossChainLiquidityAggregator aims to provide a seamless liquidity aggregation solution across multiple blockchain networks, optimizing decentralized finance (DeFi) lending rates and offering access to various liquidity pools. The aggregator uses Chainlink for routing and Pyth Stable Price Sources Oracle for determining interest rates, ensuring real-time and reliable data for decentralized credit scoring and rate optimization.
 
 # Features
+1. Cross-Chain Liquidity Aggregation: Aggregates liquidity from different blockchain networks, improving access to the best lending rates.
+2. Real-Time Interest Rate Optimization: Uses the Pyth Stable Price Sources Oracle to dynamically fetch interest rates.
+3. Decentralized Credit Scoring: Implements a decentralized mechanism for calculating user credit scores based on transaction history and lending behavior.
+4. Chainlink Router: For cross-chain routing and seamless interactions between different blockchain networks.
 
-**NFT Minting**: 
-Only the contract owner can mint unique NFT pets for users with configurable metadata and origins.
+# Tech Stack
+- Smart Contracts: Solidity for contract development.
+- Chainlink: For cross-chain communication and fetching interest rate data from Chainlink’s decentralized oracle network.
+- Pyth Oracle: For fetching stable price data to calculate optimal lending rates.
+- Cross-Chain Integration: Chainlink CCIP (Cross-Chain Interoperability Protocol) for seamless asset transfers across different blockchain ecosystems.
 
-**Community Events**:
-The owner can create events that users can join to earn rewards.
+# Dependencies
+- Solidity version: 0.8.0
+- Chainlink Oracles
+- Pyth Oracle for stable price feeds
+- Chainlink Router
 
-**Rewards System**: 
-Participants in events can earn ETH rewards, which they can later claim.
+# Setup Instructions
+**Clone the Repository**
+- git clone https://github.com/yourusername/CrossChainLiquidityAggregator.git
+- cd CrossChainLiquidityAggregator
 
-**User Preferences**: 
-Users can set and retrieve their preferences within the system.
+**Install Dependencies**
 
-# Contract Functions
-
-**mintAstroPe**t: Mints a new NFT pet to a specific address with metadata and origin details.
-
-**createEvent**: Allows the contract owner to create an event with a start and end time.
-
-**participateInEvent**: Allows users to join an event if it is active.
-
-**distributeRewards**: The contract owner can distribute ETH rewards to participants.
-
-**claimRewards**: Users can claim their accumulated rewards.
-
-**depositETH**: The contract owner can deposit ETH into the contract to fund rewards.
-
-**getContractBalance**: Returns the contract’s ETH balance.
-
-# Security Considerations
-
-**Reentrancy Guard**: Protects against reentrancy attacks in critical functions like minting and rewards claiming.
-
-**Ownable**: Restricts certain functions to the contract owner.
-
-# Getting Started
-
-# Prerequisites
-
-- Node.js and npm installed
-- Hardhat installed globally or locally in the project
-- An Ethereum wallet with testnet ETH if deploying on a test network(metamask use in this contract)
-
-**Installation**
-
-Clone this repository.
-
-git clone 
-
-cd
-
-**Install dependencies**:
-
+Ensure you have the required packages installed, including dependencies for Chainlink and Pyth Oracle sdk.
 - npm install
 
-# Testing
+# Deployment
 
-Run tests to ensure the contract functions as expected:
+Deploy the smart contracts using Hardhat
 
-npx hardhat test
+Ensure the proper Chainlink and Pyth addresses are configured in the deployment script.
 
-AstroPet Contract
+Deploy the CrossChainLiquidityAggregator.sol contract.
 
-    Minting AstroPets
-
-      ✔ Should allow the owner to mint a new AstroPet
-
-      ✔ Should not allow non-owner to mint a new AstroPet (72ms)
-
-      ✔ Should enforce mint limit per address (49ms)
-
-    Event Management
-
-      ✔ Should allow the owner to create a new event
-
-      ✔ Should allow users to participate in an event
-
-    Reward Management
-
-      ✔ Should allow the owner to distribute rewards
-
-      ✔ Should allow users to claim their rewards
-
-    ETH Deposits
-
-      ✔ Should allow the owner to deposit ETH into the contract
-
-      ✔ Should fail if non-owner tries to deposit ETH
-
-
-  9 passing (5s)
-
-  # Deployment
-
-- Run npx hardhat compile to compile the contract.
-
-- Run npx hardhat run ignition/modules/deploy.js --network arbitrumSepolia to deploy the contract.
-
-Deploy the contract by running:
+- npx hardhat run ignition/modules/deploy.js --network UnichainSepoliaTestnet
 
 Here is the deployed contract address:
+- CrossChainLiquidityAggregator deployed to: 0x359451AC3C73827A7653C0Ab7D30243844a55447
 
-AstroPet deployed to: 0xA0BF7F60ec762cc7b88dEc415D46F12cFF130a55
+# Verified contract
 
-And here is the Etherscan link address:
 
-etherscan link: https://sepolia.arbiscan.io/address/0xA0BF7F60ec762cc7b88dEc415D46F12cFF130a55
 
-# Contributing
-- Fork the Repository:
-- Create a New Branch:
-git checkout -b feature/your-feature
-- Make Changes and Commit:
-git add .
-git commit -m "Add feature"
-Push Changes:
-git push origin feature/your-feature
+# Contract Details
+1. CrossChainLiquidityAggregator.sol: The main contract that aggregates liquidity from multiple DeFi protocols and optimizes lending rates.
+2. InterestRateOracle: Fetches current interest rates using Pyth Stable Price Sources Oracle.
+3. Chainlink Router: Facilitates cross-chain interactions and asset transfers.
+
+# Oracle Integration
+1. Pyth Stable Price Sources Oracle:
+This Oracle provides stable price feeds, which are used to fetch the interestRateOracleAddress for dynamic rate calculations.
+2. Chainlink Router:
+The router facilitates seamless liquidity aggregation and cross-chain transactions. It ensures that liquidity from multiple chains is aggregated effectively for users.
+
+
+# How It Works
+1. Liquidity Aggregation: Users can access the best rates by aggregating liquidity from various blockchain networks. The contract interacts with different DeFi platforms, fetching the highest available interest rates.
+
+2. Interest Rate Optimization: By using Pyth Stable Price Sources Oracle, the contract fetches real-time stable prices to determine optimal lending rates, ensuring competitive rates for users.
+
+3. Cross-Chain Transfers: The Chainlink CCIP enables cross-chain interoperability, allowing users to move assets seamlessly between supported blockchain networks.
+
+4. Decentralized Credit Scoring: Based on user transaction history, the contract generates a credit score, allowing for better access to liquidity at competitive rates.
+
+# How to Use
+
+1. Lending: Provide liquidity to the aggregator and choose the best lending rates.
+2. Borrowing: Borrow assets across different blockchain networks, taking advantage of optimal rates fetched by the aggregator.
+3. Cross-Chain Transfers: Transfer assets between different blockchain networks using the Chainlink Router.
+
+# Example Usage
+
+Example usage of CrossChainLiquidityAggregator smart contract
+const aggregator = await CrossChainLiquidityAggregator.deployed();
+await aggregator.addLiquidity(amount, tokenAddress);
+await aggregator.borrow(amount, targetBlockchain);
+
+# Testing
+Loan Issuance Test: Checks that loans are issued with correct details.
+Loan Repayment Test: Calculates repayment amount and tests the repayment process.
+Liquidity Management Test: Tests adding and removing liquidity, ensuring pool updates as expected.
+
+# Contribution
+Feel free to fork the repository and submit pull requests. Contributions are welcome, especially for improving the credit scoring system and cross-chain integration.
 
 # License
-AstroPet is licensed under the MIT License.
-
+This project is licensed under the MIT License.
