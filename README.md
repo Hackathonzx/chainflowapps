@@ -24,7 +24,7 @@ The CrossChainLiquidityAggregator aims to provide a seamless liquidity aggregati
 
 # Setup Instructions
 **Clone the Repository**
-- git clone https://github.com/yourusername/CrossChainLiquidityAggregator.git
+- git clone https://github.com/Hackathonzx/chainflowapps.git
 - cd CrossChainLiquidityAggregator
 
 **Install Dependencies**
@@ -79,13 +79,18 @@ The router facilitates seamless liquidity aggregation and cross-chain transactio
 # Example Usage
 
 Example usage of CrossChainLiquidityAggregator smart contract
+
 const aggregator = await CrossChainLiquidityAggregator.deployed();
+
 await aggregator.addLiquidity(amount, tokenAddress);
+
 await aggregator.borrow(amount, targetBlockchain);
 
 # Testing
 Loan Issuance Test: Checks that loans are issued with correct details.
+
 Loan Repayment Test: Calculates repayment amount and tests the repayment process.
+
 Liquidity Management Test: Tests adding and removing liquidity, ensuring pool updates as expected.
 
 # Contribution
