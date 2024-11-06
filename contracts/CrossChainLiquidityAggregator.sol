@@ -4,10 +4,6 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-
-// Import Chainlink interfaces for cross-chain and oracle functionality
-// import "@chainlink/contracts/src/v0.8/interfaces/ICrossChainRouter.sol";
-// import "@chainlink/contracts/src/v0.8/interfaces/ICrossChainMessageReceiver.sol";
 import "./interfaces/ICrossChainRouter.sol";
 import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol"; // For interest rate oracle
 
